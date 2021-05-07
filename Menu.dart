@@ -10,6 +10,11 @@ class Menu extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text("صفحه اصلی",style: TextStyle(fontWeight: FontWeight.bold ),),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: (){
+            showSearch(context: context, delegate: DataSearch());
+          })
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -56,32 +61,28 @@ class Menu extends StatelessWidget {
         ),
       ),
         body: SingleChildScrollView(
+
           child:  Padding(
-         padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+          padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              tags("عطاویچ","https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg"),
-              tags("هات چیک","https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190123071624-fried-chicken-stock.jpg"),
-              tags("شیلا","https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg"),
+
+              DataSearch.tags("atawich","https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg"),
+              DataSearch.tags("hot chick","https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190123071624-fried-chicken-stock.jpg"),
+              DataSearch.tags("burger king","https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg"),
+              DataSearch.tags("mc donald","https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg"),
+              DataSearch.tags("shila","https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg"),
+              DataSearch.tags("burger zoghali","https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg"),
             ],
           ),
         ),
 
 
          ),
-      persistentFooterButtons: <Widget>[
-   Row(
 
-     children: [
-       new IconButton(icon: new Icon(Icons.timer) ),
-       new IconButton(icon: new Icon(Icons.people))  ,
-       new IconButton(icon: new Icon(Icons.map)),
-     ],
-       ),
-
-
-      ],
         );
 
 

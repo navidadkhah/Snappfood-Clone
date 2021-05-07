@@ -257,7 +257,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   var _formkey = GlobalKey<FormState>();
-String number;
+  String number = "";
 
   @override
   Widget build(BuildContext context) {
@@ -277,19 +277,14 @@ String number;
                 Image.network(
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrgJnM9FLGc_bijjNnpD5Fxu6wd6QEwjP2g&usqp=CAU"),
                 TextFormField(
+                  key: _formkey,
                     onSaved: (String value) {
                       number = value;
                     },
                   decoration: new InputDecoration(
                     labelText: "Number",
                   ),
-              validator: (String value) {
-               if(value.isEmpty){
-               return "aaa";
-    }
-               return null;
 
-                  }
                 ),
                 TextFormField(
                   decoration: new InputDecoration(
@@ -298,27 +293,17 @@ String number;
 
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if(_formkey.currentState.validate()){
-                        Navigator.pushNamed(context, "/menu");
-                      }
 
-                       /* Future.delayed(const Duration(milliseconds: 500),
-                                () {
-                              setState(() {
-                                Navigator.pushNamed(context, "/menu");
-                              });
-                            });*/
 
-                    });
+                        onPressed:() { Navigator.pushNamed(context, "/menu");},
 
-                  },
 
-                  child: Text("login",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text("login",
+                      style: TextStyle(fontWeight: FontWeight.bold),)
+                    ),
 
-                ),
+
+
               ],
             ),
           ),

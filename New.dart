@@ -106,5 +106,8 @@ class DataSearch extends SearchDelegate<String> {
 
   }
 
+  static void rate(){
 
+  }
 }
+

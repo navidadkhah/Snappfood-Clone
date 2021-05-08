@@ -68,35 +68,6 @@ class Home extends StatelessWidget {
   }
 }
 
-/*
-class Secondpage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.teal,
-      appBar: AppBar(
-        title: Text("salam"),
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: [],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-}
-*/
-
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -179,8 +150,11 @@ class _SignInState extends State<SignIn> {
                         number = value;
                       },
                       validator: (String num) {
-                        if (num.length != 11) {
+                        if (num.length != 11 ) {
                           return " Atleast 11 number";
+                        }
+                        else if(Infos.information.indexWhere((element) => element.number == num)!=-1){
+                          return " has been taken";
                         }
                         return null;
                       },
@@ -256,8 +230,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  var _formkey = GlobalKey<FormState>();
+  var _formkey1 = GlobalKey<FormState>();
+  var _formkey2 = GlobalKey<FormState>();
+
   String number = "";
+  String password="";
+
 
   @override
   Widget build(BuildContext context) {
@@ -276,26 +254,51 @@ class _LoginState extends State<Login> {
 
                 Image.network(
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRrgJnM9FLGc_bijjNnpD5Fxu6wd6QEwjP2g&usqp=CAU"),
-                TextFormField(
-                  key: _formkey,
-                    onSaved: (String value) {
-                      number = value;
-                    },
-                  decoration: new InputDecoration(
-                    labelText: "Number",
-                  ),
+               Form(
+                 key: _formkey1,
+                 child:  TextFormField(
+                   onSaved: (String value) {
+                     number = value;
+                   },
+                   validator: (String value){
+                     if(Infos.information.indexWhere((element) => element.number == value)<0){
+                       return "   Wrong";
+                     }
+                     return null;
+                   },
+                   decoration: new InputDecoration(
+                     labelText: "Number",
+                   ),
 
-                ),
-                TextFormField(
-                  decoration: new InputDecoration(
-                    labelText: "Password",
-                  ),
+                 ),
+               ),
+               Form(
+                 key: _formkey2,
+                 child: TextFormField(
+                   onSaved: (String value){
+                     password=value;
+                   },
+                     decoration: new InputDecoration(
+                       labelText: "Password",
+                     ),
+                   validator: (String value){
+                        if(Infos.information.indexWhere((element) => element.password == value)<0){
+                          return  "   Wrong";
+                        }
+                        return null;
+                   },
+               )
+
 
                 ),
                 ElevatedButton(
-
-
-                        onPressed:() { Navigator.pushNamed(context, "/menu");},
+                        onPressed:() {
+                          setState(() {
+                            if(_formkey1.currentState.validate() && _formkey2.currentState.validate())
+                            Navigator.pushNamed(context, "/menu");
+                            
+                          });
+                          },
 
 
                     child: Text("login",

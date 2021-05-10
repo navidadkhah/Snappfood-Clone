@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snappfood_app/Info.dart';
@@ -5,8 +7,12 @@ import 'package:snappfood_app/Infos.dart';
 import 'package:flutter/widgets.dart';
 import 'package:snappfood_app/Menu.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:snappfood_app/New.dart';
 import 'package:snappfood_app/Widjects.dart';
 //  flutter_spinkit: ^4.1.2 ino to pubspec zadam
+
+
+
 
 void main() {
   runApp(MyApp());
@@ -22,6 +28,9 @@ class MyApp extends StatelessWidget {
         "/signin": (context) => SignIn(),
         "/menu": (context) => Menu(),
         "/etebar": (context) => Etebar(),
+        "/comments": (context) => Comments(),
+        "/CmResturant": (context) => CmResturant(),
+        "/likes": (context) => likes(),
       },
       home: Home(),
     );
@@ -318,5 +327,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
 

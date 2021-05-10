@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:snappfood_app/Menu.dart';
 import 'package:snappfood_app/main.dart';
 
+var _form=GlobalKey<FormState>();
 
+ List<String> _resturant = [];
 
 
 
 class DataSearch extends SearchDelegate<String> {
 
-  static List<String> _resturant = [];
+
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -34,7 +36,7 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
 
-  return tags(_resturant.firstWhere((element) => element.startsWith(query)).toString(), "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg");
+  return tags(_resturant.firstWhere((element) => element.startsWith(query)).toString(), "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg",context);
   }
 
 
@@ -55,16 +57,17 @@ class DataSearch extends SearchDelegate<String> {
   }
 
 
-  static tags(String name,String photo){
+  static tags(String name,String photo,BuildContext context){
 
     _resturant.add(name);
+
 
     return Container(
         margin: EdgeInsets.all(20.0),
         padding: EdgeInsets.all(0.0),
         alignment: Alignment.topRight,
         width: 600,
-        height: 350,
+        height: 400,
         decoration: BoxDecoration(
           color: Colors.grey,
           border: Border.all(),
@@ -76,7 +79,31 @@ class DataSearch extends SearchDelegate<String> {
           children: [
 
             Image.network(photo,height: 200.0,width: 600.0,alignment: Alignment.topRight,),
-            Text(name,textAlign: TextAlign.center,style: TextStyle(decoration: TextDecoration.underline,fontWeight: FontWeight.w900,fontSize: 22.0,color: Colors.black),),
+
+
+            ListTile(
+              onTap: (){
+                Navigator.pushNamed(context, '/menu');
+              },
+              title: Text(name,textAlign: TextAlign.center,style: TextStyle(decoration: TextDecoration.underline,fontWeight: FontWeight.w900,fontSize: 22.0,color: Colors.black),),
+             subtitle: ButtonTheme(
+               height: 10.0,
+              child: ConstrainedBox(
+                 constraints: BoxConstraints.tightFor(width: 30, height: 20),
+                 child:    ElevatedButton(
+                   child: Text("Add to favorites"),
+                   onPressed: (){
+                     if((_like.indexWhere((element) => element.toLowerCase() == name)==-1)){
+                       _like.add(name);
+                     }
+
+                   },
+                 ),
+               )
+             ),
+            ),
+
+
             Padding(
               padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               child:  Row(
@@ -85,29 +112,167 @@ class DataSearch extends SearchDelegate<String> {
                 children: [
 
                   RaisedButton(
-                      child: Text("سفارش مجدد",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.white),),
+                      child: Text("سفارش مجدد",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
                       onPressed: null,
                       shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                   ),
                   Spacer(),
                   RaisedButton(
-                      child: Text("مشاهده فاکتور",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.white),),
-                      onPressed: null,
+                      child: Text("مشاهده فاکتور",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
+                      onPressed:(){
+
+                      },
                       shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0))
-                  )
+                  ),
 
                 ],
               ),
-            )
+            ),
+            RaisedButton(
+                child: Text("ثبت نظر",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
+                onPressed: (){
+                  Navigator.pushNamed(context, '/CmResturant');
+                },
 
+                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0))
+            )
           ],
         )
     );
 
   }
 
-  static void rate(){
+  static fav(String name,String photo,BuildContext context){
+
+    _resturant.add(name);
+
+
+    return Container(
+        margin: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(0.0),
+        alignment: Alignment.topRight,
+        width: 600,
+        height: 400,
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          border: Border.all(),
+        ),
+        child: Column(
+
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+
+            Image.network(photo,height: 200.0,width: 600.0,alignment: Alignment.topRight,),
+
+
+            ListTile(
+              onTap: (){
+                Navigator.pushNamed(context, '/menu');
+              },
+              title: Text(name,textAlign: TextAlign.center,style: TextStyle(decoration: TextDecoration.underline,fontWeight: FontWeight.w900,fontSize: 22.0,color: Colors.black),),
+              subtitle: ButtonTheme(
+                  height: 10.0,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints.tightFor(width: 30, height: 20),
+                    child:    ElevatedButton(
+                      child: Text("Remove from favorites"),
+                      onPressed: (){
+                          _like.remove(name);
+                          Navigator.pushNamed(context, "/likes");
+                      },
+                    ),
+                  )
+              ),
+            ),
+
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+                  RaisedButton(
+                      child: Text("سفارش مجدد",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
+                      onPressed: null,
+                      shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                  ),
+                  Spacer(),
+                  RaisedButton(
+                      child: Text("مشاهده فاکتور",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
+                      onPressed:(){
+
+                      },
+                      shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0))
+                  ),
+
+                ],
+              ),
+            ),
+            RaisedButton(
+                child: Text("ثبت نظر",style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black),),
+                onPressed: (){
+                  Navigator.pushNamed(context, '/CmResturant');
+                },
+
+                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(50.0))
+            )
+          ],
+        )
+    );
 
   }
+
 }
+
+
+
+
+
+
+List<String> _like = [
+
+];
+
+
+class likes extends StatefulWidget {
+
+
+
+  @override
+  _likesState createState() => _likesState();
+}
+
+class _likesState extends State<likes> {
+  @override
+  Widget build(BuildContext context) {
+
+        return Scaffold(
+          backgroundColor: Colors.blueGrey,
+          appBar: AppBar(
+            leading: Icon(Icons.favorite,color: Colors.purple,),
+            backgroundColor: Colors.red,
+            title: Text("مورد علاقه ها",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+          ),
+          body: ListView.builder(
+            itemCount: _like.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: DataSearch.fav( ('${_like[index]}'), "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg", context),
+                          );
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              Navigator.pushNamed(context, "/menu");
+            },
+            backgroundColor: Colors.red,
+            child: Icon(Icons.arrow_back),
+          ),
+        );
+      }
+  }
+
 

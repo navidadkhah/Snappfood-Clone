@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
         "/comments": (context) => Comments(),
         "/CmResturant": (context) => CmResturant(),
         "/likes": (context) => likes(),
+        "/previousorder": (context)=> PreviousOrder(),
+        "/order": (context)=> Order(),
       },
       home: Home(),
     );

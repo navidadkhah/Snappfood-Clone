@@ -17,17 +17,27 @@ import 'package:snappfood_app/Food.dart';
 class Menu extends StatelessWidget {
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text(
           "صفحه اصلی", style: TextStyle(fontWeight: FontWeight.bold),),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {
-            showSearch(context: context, delegate: DataSearch());
-          })
+          Row(
+            children: [
+              IconButton(icon: Icon(Icons.filter_alt), onPressed: () {
+                  Navigator.pushNamed(context, "/nazdik");
+            }),
+              IconButton(icon: Icon(Icons.search), onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              }),
+            ],
+          ),
+
         ],
       ),
       drawer: Drawer(
@@ -94,18 +104,21 @@ class Menu extends StatelessWidget {
                   context),
 
               DataSearch.asli("SUBWAY","Tuna","Chicken Slice","Roast Beef","Turkey Breast","Water","Soda",
-                  "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190123071624-fried-chicken-stock.jpg",
+                  "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i.K41TItzGNE/v1/1000x-1.jpg",
                   context),
               DataSearch.asli("BURGER KING","Whopper","BBQ Bacon Double","Double CheeseBurger","Chicken Burger","Soda","Water",
-                  "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
+                  "https://i.pinimg.com/236x/48/36/57/483657203d510776cbf18571c26a44df.jpg",
                   context),
               DataSearch.asli("MC DONALD","Big Mac","Bacon Smokehouse Burger","Triple Cheeseburger","McDouble","Pepsi","Cola",
-                  "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY0A2ZwzWcTmOynbM9KqCWtF8KRUYOs0YYGw&usqp=CAU",
                   context),
               DataSearch.asli("STARBUCKS","Black Tea","Tea Latte","Mocha","Caramel","Cold Coffee","Java Chip",
-                  "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
+                  "https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg",
                   context),
               DataSearch.asli("KFC","2 Piece Combo","3 Piece Combo","5 Piece Combo","Wings Combo","Pepsi","Water",
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA0WCkDLoVZXsMFv7jig_CNucDpKjztDTMIQ&usqp=CAU",
+                  context),
+              DataSearch.asli("PIZZA HUT","Island Tuna","Chicken Royale","Veggie Lover","Deluxe Cheese","Pepsi","Water",
                   "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
                   context),
             ],
@@ -120,8 +133,10 @@ class Menu extends StatelessWidget {
 
 }
 
-List<String> _cms = ["vv"];
-String cm="qq";
+
+
+List<String> _cms = [];
+
 
 
 
@@ -135,6 +150,7 @@ class CmResturant extends StatefulWidget {
 class _CmResturantState extends State<CmResturant> {
 
   var _Form = GlobalKey<FormState>();
+String cm;
 
 
   @override
@@ -154,7 +170,6 @@ class _CmResturantState extends State<CmResturant> {
               child: Container(
                   padding: EdgeInsets.all(10.0),
                   alignment: Alignment.center,
-
                   width: 20.0,
                   height: 200.0,
                   child: Column(
@@ -178,7 +193,7 @@ class _CmResturantState extends State<CmResturant> {
                       ElevatedButton(
                         onPressed: () {
                           if (_Form.currentState.validate()) {
-
+                           // _cms.add(cm);
                             Future.delayed(const Duration(milliseconds: 500),
                                     () {
                                   setState(() {
@@ -229,7 +244,7 @@ class _CommentsState extends State<Comments> {
             itemCount:_cms.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(_cms.toString(),style: TextStyle(color: Colors.black),),
+                title: Text('${_cms[index]}',style: TextStyle(color: Colors.black),),
               );
             },
           ),
@@ -241,4 +256,259 @@ class _CommentsState extends State<Comments> {
     );
     }
 
+}
+
+class Nazdik extends StatefulWidget {
+  @override
+  _NazdikState createState() => _NazdikState();
+}
+
+class _NazdikState extends State<Nazdik> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[800],
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text(
+          "نزدیک ترین ها", style: TextStyle(fontWeight: FontWeight.bold),),
+        actions: <Widget>[
+          Row(
+            children: [
+              IconButton(icon: Icon(Icons.filter_alt), onPressed: () {
+                Navigator.pushNamed(context, "/emtiaz");
+              }),
+              IconButton(icon: Icon(Icons.search), onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              }),
+            ],
+          ),
+
+        ],
+      ),
+        drawer: Drawer(
+    child: ListView(
+    padding: EdgeInsets.zero,
+      children: [
+        DrawerHeader(
+          child: Text("پروفایل کاربر", style: TextStyle(fontSize: 18.0),),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadiusDirectional.zero,
+            color: Colors.blue[300],
+          ),
+        ),
+        ListTile(
+          title: Text("سفارش های پیشین", textAlign: TextAlign.right,
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamed(context, "/previousorder");
+          },
+        ),
+        ListTile(
+          title: Text("افزایش اعتبار", textAlign: TextAlign.right,
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamed(context, "/etebar");
+          },
+        ),
+        ListTile(
+          title: Text("نظرات من", textAlign: TextAlign.right,
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamed(context, "/comments");
+          },
+        ),
+        ListTile(
+          title: Text("رستوران های مورد علاقه", textAlign: TextAlign.right,
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamed(context, "/likes");
+          },
+        ),
+        ListTile(
+          title: Text("سبد خرید", textAlign: TextAlign.right,
+            style: TextStyle(fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamed(context, "/sabad");
+          },
+        ),
+      ],
+    ),
+    ),
+    body: SingleChildScrollView(
+
+    child: Padding(
+    padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+    child: Column(
+
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      DataSearch.asli("BURGER KING","Whopper","BBQ Bacon Double","Double CheeseBurger","Chicken Burger","Soda","Water",
+          "https://i.pinimg.com/236x/48/36/57/483657203d510776cbf18571c26a44df.jpg",
+          context),
+
+      DataSearch.asli("MC DONALD","Big Mac","Bacon Smokehouse Burger","Triple Cheeseburger","McDouble","Pepsi","Cola",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY0A2ZwzWcTmOynbM9KqCWtF8KRUYOs0YYGw&usqp=CAU",
+          context),
+    DataSearch.asli("SUBWAY","Tuna","Chicken Slice","Roast Beef","Turkey Breast","Water","Soda",
+    "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i.K41TItzGNE/v1/1000x-1.jpg",
+    context),
+
+      DataSearch.asli("ATAWICH","Veggie Sandwich","Bacon Dog","Hamburger","Fries","Fanta","Iatak",
+          "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg",
+          context),
+
+
+      DataSearch.asli("PIZZA HUT","Island Tuna","Chicken Royale","Veggie Lover","Deluxe Cheese","Pepsi","Water",
+          "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
+          context),
+
+    DataSearch.asli("STARBUCKS","Black Tea","Tea Latte","Mocha","Caramel","Cold Coffee","Java Chip",
+    "https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg",
+    context),
+
+    DataSearch.asli("KFC","2 Piece Combo","3 Piece Combo","5 Piece Combo","Wings Combo","Pepsi","Water",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA0WCkDLoVZXsMFv7jig_CNucDpKjztDTMIQ&usqp=CAU",
+    context),
+
+
+
+    ],
+    ),
+    ),
+
+
+    ),
+    );
+  }
+}
+
+
+class Emtiaz extends StatefulWidget {
+  @override
+  _EmtiazState createState() => _EmtiazState();
+}
+
+class _EmtiazState extends State<Emtiaz> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[800],
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text(
+          "برترین ها", style: TextStyle(fontWeight: FontWeight.bold),),
+        actions: <Widget>[
+          Row(
+            children: [
+              IconButton(icon: Icon(Icons.filter_alt), onPressed: () {
+                Navigator.pushNamed(context, "/menu");
+              }),
+              IconButton(icon: Icon(Icons.search), onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              }),
+            ],
+          ),
+
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              child: Text("پروفایل کاربر", style: TextStyle(fontSize: 18.0),),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.zero,
+                color: Colors.blue[300],
+              ),
+            ),
+            ListTile(
+              title: Text("سفارش های پیشین", textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushNamed(context, "/previousorder");
+              },
+            ),
+            ListTile(
+              title: Text("افزایش اعتبار", textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushNamed(context, "/etebar");
+              },
+            ),
+            ListTile(
+              title: Text("نظرات من", textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushNamed(context, "/comments");
+              },
+            ),
+            ListTile(
+              title: Text("رستوران های مورد علاقه", textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushNamed(context, "/likes");
+              },
+            ),
+            ListTile(
+              title: Text("سبد خرید", textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pushNamed(context, "/sabad");
+              },
+            ),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+          child: Column(
+
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              DataSearch.asli("STARBUCKS","Black Tea","Tea Latte","Mocha","Caramel","Cold Coffee","Java Chip",
+                  "https://upload.wikimedia.org/wikipedia/commons/d/d6/Starbucks_logo.jpg",
+                  context),
+
+              DataSearch.asli("KFC","2 Piece Combo","3 Piece Combo","5 Piece Combo","Wings Combo","Pepsi","Water",
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA0WCkDLoVZXsMFv7jig_CNucDpKjztDTMIQ&usqp=CAU",
+                  context),
+
+              DataSearch.asli("SUBWAY","Tuna","Chicken Slice","Roast Beef","Turkey Breast","Water","Soda",
+                  "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i.K41TItzGNE/v1/1000x-1.jpg",
+                  context),
+
+              DataSearch.asli("BURGER KING","Whopper","BBQ Bacon Double","Double CheeseBurger","Chicken Burger","Soda","Water",
+                  "https://i.pinimg.com/236x/48/36/57/483657203d510776cbf18571c26a44df.jpg",
+                  context),
+
+              DataSearch.asli("MC DONALD","Big Mac","Bacon Smokehouse Burger","Triple Cheeseburger","McDouble","Pepsi","Cola",
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY0A2ZwzWcTmOynbM9KqCWtF8KRUYOs0YYGw&usqp=CAU",
+                  context),
+
+
+              DataSearch.asli("ATAWICH","Veggie Sandwich","Bacon Dog","Hamburger","Fries","Fanta","Iatak",
+                  "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg",
+                  context),
+
+
+              DataSearch.asli("PIZZA HUT","Island Tuna","Chicken Royale","Veggie Lover","Deluxe Cheese","Pepsi","Water",
+                  "https://www.recipetineats.com/wp-content/uploads/2020/05/Pizza-Crust-without-yeast_5-SQ.jpg",
+                  context),
+
+
+                          ],
+          ),
+        ),
+
+
+      ),
+    );
+  }
 }

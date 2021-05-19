@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:snappfood_app/Menu.dart';
 import 'package:snappfood_app/main.dart';
 import 'package:snappfood_app/Foods.dart';
@@ -15,6 +16,7 @@ var _form=GlobalKey<FormState>();
  List<String> _resturant = [];
 List<String> _food = [];
 List<String> _order= [];
+List<String> _Rorder= [];
 List<String> _Porder= [];
 
 class DataSearch extends SearchDelegate<String> {
@@ -42,8 +44,8 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return tags(_resturant.firstWhere((element) => element.startsWith(query))
-        .toString(),
+    return asli(_resturant.firstWhere((element) => element.startsWith(query))
+        .toString(),"Food1","Food2","Food3","Food4","Drink1","Drink2",
         "https://s01.sgp1.cdn.digitaloceanspaces.com/article/143395-pysnzzzleh-1593090551.jpg",
         context);
   }
@@ -129,7 +131,8 @@ class DataSearch extends SearchDelegate<String> {
                       child: Text("سفارش مجدد", style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),),
                       onPressed: () {
-                   
+
+                   Navigator.pushNamed(context, "/order");
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0))
@@ -139,7 +142,7 @@ class DataSearch extends SearchDelegate<String> {
                       child: Text("مشاهده فاکتور", style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),),
                       onPressed: () {
-
+                          Navigator.pushNamed(context, "/lastorder");
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(50.0))
@@ -210,27 +213,38 @@ class DataSearch extends SearchDelegate<String> {
               ),
             ),
 
-
             Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              padding: EdgeInsets.fromLTRB(30.0, 10.0, 40.0, 10.0),
+              child:Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Row(
+                    mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                    children: [
+                      RaisedButton(
+                          child: Text("سفارش", style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),),
+                          onPressed: () {
+                            for (var i = 0; i < _order.length; i++) {
+                              _order.clear();
+                            }
 
-                  RaisedButton(
-                      child: Text("سفارش", style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),),
-                      onPressed: () {
+                            Navigator.pushNamed(context, "/order");
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0))
+                      ),
 
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0))
+                      Text("${(rng.nextInt(5))}.${(rng.nextInt(10))}",style: TextStyle(fontSize: 32.0,color: Colors.red),)
+
+                    ],
                   ),
-
                 ],
               ),
+
             ),
+
             RaisedButton(
                 child: Text("ثبت نظر", style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.black),),
@@ -258,7 +272,7 @@ class DataSearch extends SearchDelegate<String> {
         padding: EdgeInsets.all(0.0),
         alignment: Alignment.topRight,
         width: 600,
-        height: 400,
+        height: 415,
         decoration: BoxDecoration(
           color: Colors.grey,
           border: Border.all(),
@@ -271,65 +285,84 @@ class DataSearch extends SearchDelegate<String> {
 
             Image.network(photo, height: 200.0,
               width: 600.0,
-              alignment: Alignment.topRight,),
+            fit: BoxFit.fill,),
 
 
-            ListTile(
 
-              title: Text(name, textAlign: TextAlign.center,
-                style: TextStyle(decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 22.0,
-                    color: Colors.black),),
-              subtitle: ButtonTheme(
-                  height: 10.0,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(width: 30, height: 20),
-                    child: ElevatedButton(
-                      child: Text("Add to favorites"),
-                      onPressed: () {
-                        if ((_like.indexWhere((element) =>
-                        element.toLowerCase() == name) == -1)) {
-                          _like.add(name);
-                        }
-                      },
-                    ),
-                  )
-              ),
-            ),
+                ListTile(
+
+                  title: Text(name, textAlign: TextAlign.center,
+                    style: TextStyle(decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 22.0,
+                        color: Colors.black),),
+                  subtitle: ButtonTheme(
+                      height: 10.0,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints.tightFor(width: 30, height: 20),
+                        child: ElevatedButton(
+                          child: Text("Add to favorites"),
+                          onPressed: () {
+                            if ((_like.indexWhere((element) =>
+                            element.toLowerCase() == name) == -1)) {
+                              _like.add(name);
+                            }
+                          },
+                        ),
+                      )
+                  ),
+                ),
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.lock_clock),
+                    Text("10:30")
+                  ],
+                ),
 
 
             Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              padding: EdgeInsets.fromLTRB(30.0, 10.0, 40.0, 10.0),
+              child:Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Row(
+                    mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                    children: [
+                      RaisedButton(
+                          child: Text("سفارش", style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),),
+                          onPressed: () {
+                            for (var i = 0; i < _order.length; i++) {
+                              _order.clear();
+                            }
+                            _OrderState.Constra(
+                                name,
+                                ghaza1,
+                                ghaza2,
+                                ghaza3,
+                                ghaza4,
+                                drink1,
+                                drink2);
+                            Navigator.pushNamed(context, "/order");
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0))
+                      ),
 
-                  RaisedButton(
-                      child: Text("سفارش", style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),),
-                      onPressed: () {
-                        for (var i = 0; i < _order.length; i++) {
-                         _order.clear();
-                        }
-                        _OrderState.Constra(
-                            name,
-                            ghaza1,
-                            ghaza2,
-                            ghaza3,
-                            ghaza4,
-                            drink1,
-                            drink2);
-                        Navigator.pushNamed(context, "/order");
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0))
+                      Text("${(rng.nextInt(5))}.${(rng.nextInt(10))}",style: TextStyle(fontSize: 32.0,color: Colors.red),)
+
+                    ],
                   ),
-
                 ],
               ),
+
             ),
+
             RaisedButton(
                 child: Text("ثبت نظر", style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.black),),
@@ -349,6 +382,9 @@ class DataSearch extends SearchDelegate<String> {
 
   static food(BuildContext context,String name, String ghaza1, String ghaza2, String ghaza3,
       String ghaza4, String drink1, String drink2) {
+    bool pressed = true;
+    _Rorder.clear();
+    _Rorder.add(name);
     return Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -359,13 +395,13 @@ class DataSearch extends SearchDelegate<String> {
                 leading: IconButton(
                   onPressed: (){
                     _order.add(ghaza1);
-                    gheymat+=rng.nextInt(100);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(ghaza1),
                 subtitle: Text(
-                  '${(rng.nextInt(100))} \$',
+                  '${(rng.nextInt(50)+50)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
                 tileColor: Colors.grey,
@@ -374,13 +410,13 @@ class DataSearch extends SearchDelegate<String> {
                 leading:IconButton(
                   onPressed: (){
                     _order.add(ghaza2);
-                    gheymat+=rng.nextInt(100);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(ghaza2),
                 subtitle: Text(
-                  '${(rng.nextInt(100))} \$',
+                  '${(rng.nextInt(50)+50)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
 
@@ -389,13 +425,13 @@ class DataSearch extends SearchDelegate<String> {
                 leading: IconButton(
                   onPressed: (){
                     _order.add(ghaza3);
-                    gheymat+=rng.nextInt(100);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(ghaza3),
                 subtitle: Text(
-                  '${(rng.nextInt(100))} \$',
+                  '${(rng.nextInt(50)+50)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
                 tileColor: Colors.grey,
@@ -405,13 +441,13 @@ class DataSearch extends SearchDelegate<String> {
                 leading: IconButton(
                   onPressed: (){
                     _order.add(ghaza4);
-                    gheymat+=rng.nextInt(100);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(ghaza4),
                 subtitle: Text(
-                  '${(rng.nextInt(100))} \$',
+                  '${(rng.nextInt(50)+50)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
 
@@ -420,13 +456,13 @@ class DataSearch extends SearchDelegate<String> {
                 leading: IconButton(
                   onPressed: (){
                     _order.add(drink1);
-                    gheymat+=rng.nextInt(50);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(drink1),
                 subtitle: Text(
-                  '${(rng.nextInt(50))} \$',
+                  '${(rng.nextInt(5)+2)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
                 tileColor: Colors.grey,
@@ -435,16 +471,28 @@ class DataSearch extends SearchDelegate<String> {
                 leading: IconButton(
                   onPressed: (){
                     _order.add(drink2);
-                    gheymat+=rng.nextInt(50);
+                    gheymat+=10;
                   },
                   icon: Icon(Icons.add,color: Colors.redAccent,),
                 ),
                 title:  Text(drink2),
                 subtitle: Text(
-                  '${(rng.nextInt(50))} \$',
+                  '${(rng.nextInt(5)+2)} \$',
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
 
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Rate: ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+                  TextButton(onPressed: (){}, child: Text("1",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                  TextButton(onPressed: (){}, child: Text("2",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                  TextButton(onPressed: (){}, child: Text("3",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                  TextButton(onPressed: (){}, child: Text("4",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                  TextButton(onPressed: (){}, child: Text("5",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                ],
               ),
 
                 ElevatedButton(
@@ -453,6 +501,7 @@ class DataSearch extends SearchDelegate<String> {
                      Navigator.pushNamed(context, "/etebar");
                         }
                       else{
+                       // _Porder.add(name);
                         if ((_Porder.indexWhere((element) =>
                         element.toLowerCase() == name) == -1)){
                           _Porder.add(name);
@@ -493,10 +542,10 @@ class _likesState extends State<likes> {
   Widget build(BuildContext context) {
 
         return Scaffold(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.indigoAccent[100],
           appBar: AppBar(
             leading: Icon(Icons.favorite,color: Colors.purple,),
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.pink,
             title: Text("مورد علاقه ها",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
           ),
           body: ListView.builder(
@@ -511,7 +560,7 @@ class _likesState extends State<likes> {
             onPressed: (){
               Navigator.pushNamed(context, "/menu");
             },
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.pink,
             child: Icon(Icons.arrow_back),
           ),
         );
@@ -575,36 +624,47 @@ class _OrderState extends State<Order> {
 }
 
 
+
 class Sabad extends StatefulWidget {
   @override
   _SabadState createState() => _SabadState();
 }
 
 class _SabadState extends State<Sabad> {
+  static var rng = new Random();
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         leading: Icon(Icons.border_color,color: Colors.black,),
         backgroundColor: Colors.red,
-        title: Text("سفارش",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+        title: Text(_Rorder.elementAt(0),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
       ),
-      body: ListView.builder(
-        itemCount: _order.length,
-        itemBuilder: (context, index) {
-          return ListTile(
 
-             title: Text('${_order[index]}'),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.pop(context);
-        },
-        backgroundColor: Colors.red,
-        child: Icon(Icons.arrow_back),
-      ),
+
+
+      body:ListView.builder(
+              itemCount: _order.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Icon(Icons.arrow_forward_rounded,color: Colors.black,),
+                  title: Text('${_order[index]}',style: TextStyle(fontWeight: FontWeight.bold),),
+                  subtitle: Text('${(rng.nextInt(10)+2)} \$',style: TextStyle(color: Colors.green),),
+                );
+              },
+            ),
+
+
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          backgroundColor: Colors.red,
+          child: Icon(Icons.arrow_back),
+         )
 
 
     );
@@ -622,8 +682,10 @@ class _PreviousOrderState extends State<PreviousOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       appBar: AppBar(
-        title: Text("سفارشات پیشین"),
+        title: Text("سفارشات پیشین",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+        backgroundColor: Colors.red,
       ),
       body: ListView.builder(
         itemCount: _Porder.length,
@@ -633,6 +695,7 @@ class _PreviousOrderState extends State<PreviousOrder> {
           );
         },
       ),
+
     );
   }
 }
@@ -745,3 +808,209 @@ class _EtebarState extends State<Etebar> {
   }
 }
 
+
+class LastOrder extends StatefulWidget {
+  @override
+  _LastOrderState createState() => _LastOrderState();
+}
+
+class _LastOrderState extends State<LastOrder> {
+  String _randomString(int length) {
+    var rand = new Random();
+    var codeUnits = new List.generate(
+        length,
+            (index){
+          return rand.nextInt(33)+89;
+        }
+    );
+
+    return new String.fromCharCodes(codeUnits);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      appBar: AppBar(
+        leading: Icon(Icons.credit_card),
+        title: Text("Last Order",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,),),
+        backgroundColor: Colors.red,
+      ),
+      body:Column(
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 5.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Date : 07/01/2020",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),),
+                    Text("Time : 9:07:48 PM",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+      Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 10.0),
+        child:Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+               crossAxisAlignment: CrossAxisAlignment.stretch,
+           children: [
+          Row(
+            mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Row",style: TextStyle(fontWeight: FontWeight.bold),),
+              Text("Name",style: TextStyle(fontWeight: FontWeight.bold),),
+              Text("Price",style: TextStyle(fontWeight: FontWeight.bold),),
+            ],
+          ),
+          Row(
+
+            children: [
+              Text("----------------------------------------------------------------",style: TextStyle(fontWeight: FontWeight.bold),),
+            ],
+          ),
+        ],
+      ),
+      ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 30.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("1",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),),
+                    Text("Deluxe Cheese",style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text("25 \$",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 30.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("2",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),),
+                    Text("Whopper",style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text("31 \$",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 30.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("3",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),),
+                    Text("Pepsi",style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text("4 \$",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 30.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.center,
+                  children: [
+                    Text("------------------------------",style: TextStyle(fontWeight: FontWeight.bold),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 10.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Total :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22.0),),
+                    Text("60 \$",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green,fontSize: 22.0),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 10.0, 30.0, 10.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Tracking Code :",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22.0),),
+                    Text(_randomString(5),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blueAccent,fontSize: 22.0),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 10.0, 30.0, 10.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.center,
+
+                  children: [
+
+                    Text("31st St, Tehran Province, Tehran, Iran",style: TextStyle(decoration: TextDecoration.underline,decorationStyle: TextDecorationStyle.double,decorationColor: Colors.redAccent,color: Colors.black,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic), ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(40.0, 5.0, 30.0, 20.0),
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment:  MainAxisAlignment.center,
+
+                  children: [
+                    IconButton(icon: Icon(Icons.check_circle,size: 50.0,color: Colors.green[700],), onPressed: (){
+                      Navigator.pop(context);
+                    })
+                  ],
+                ),
+              ],
+            ),
+          ),
+      ]
+      )
+      );
+  }
+}

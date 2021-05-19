@@ -33,8 +33,10 @@ class MyApp extends StatelessWidget {
         "/likes": (context) => likes(),
         "/previousorder": (context)=> PreviousOrder(),
         "/order": (context)=> Order(),
-      //  "/check": (context)=> Check(),
         "/sabad": (context)=> Sabad(),
+        "/lastorder": (context)=> LastOrder(),
+        "/nazdik": (context)=> Nazdik(),
+        "/emtiaz": (context)=> Emtiaz(),
       },
       home: Home(),
     );

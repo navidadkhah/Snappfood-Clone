@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         "/lastorder": (context)=> LastOrder(),
         "/nazdik": (context)=> Nazdik(),
         "/emtiaz": (context)=> Emtiaz(),
+        "/nazarat": (context)=> Nazarat(),
       },
       home: Home(),
     );

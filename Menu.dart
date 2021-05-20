@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,7 +14,8 @@ import 'package:snappfood_app/Food.dart';
 
 
 
-
+List<String> _resturant = ["ATAWICH","SUBWAY","BURGER KING","MC DONALD","STARBUCKS","KFC","PIZZA HUT"];
+ var rng = new Random();
 
 class Menu extends StatelessWidget {
 
@@ -150,7 +153,7 @@ class CmResturant extends StatefulWidget {
 class _CmResturantState extends State<CmResturant> {
 
   var _Form = GlobalKey<FormState>();
-String cm;
+  String cm;
 
 
   @override
@@ -181,7 +184,7 @@ String cm;
 
                         onSaved: (String value) {
                           cm=value;
-                          _cms.add(cm);
+
                         },
                         validator: (String value) {
                           if (value.isEmpty) {
@@ -193,7 +196,8 @@ String cm;
                       ElevatedButton(
                         onPressed: () {
                           if (_Form.currentState.validate()) {
-                           // _cms.add(cm);
+                            _Form.currentState.save();
+                            _cms.add(cm);
                             Future.delayed(const Duration(milliseconds: 500),
                                     () {
                                   setState(() {
@@ -225,6 +229,7 @@ class Comments extends StatefulWidget {
 
 class _CommentsState extends State<Comments> {
 
+  var rng = new Random();
 
   @override
   Widget build(BuildContext context) {
@@ -240,14 +245,19 @@ class _CommentsState extends State<Comments> {
 
         body:Padding(
           padding: EdgeInsets.all(10.0),
-          child:   ListView.builder(
-            itemCount:_cms.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text('${_cms[index]}',style: TextStyle(color: Colors.black),),
-              );
-            },
-          ),
+          child:ListView.builder(
+                itemCount:_cms.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(Icons.speaker_notes_rounded,color: Colors.red,semanticLabel: "note",),
+                       title: Text("About "+_resturant.elementAt(rng.nextInt(6))+" :",style: TextStyle(fontStyle: FontStyle.italic),),
+                       subtitle: Text(_cms[index].toString(),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                    ),
+                  );
+                },
+              ),
+
         )
 
 

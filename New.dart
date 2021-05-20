@@ -11,13 +11,14 @@ import 'package:snappfood_app/Food.dart';
 int price = 0;
 int gheymat=0;
 
-var _form=GlobalKey<FormState>();
 
- List<String> _resturant = [];
+var _form=GlobalKey<FormState>();
+List<String> _resturant = [];
 List<String> _food = [];
 List<String> _order= [];
 List<String> _Rorder= [];
 List<String> _Porder= [];
+List<String> _Rname=[];
 
 class DataSearch extends SearchDelegate<String> {
 
@@ -354,7 +355,7 @@ class DataSearch extends SearchDelegate<String> {
                               borderRadius: new BorderRadius.circular(30.0))
                       ),
 
-                      Text("${(rng.nextInt(5))}.${(rng.nextInt(10))}",style: TextStyle(fontSize: 32.0,color: Colors.red),)
+                      Text("${(rng.nextInt(4)+1)}.${(rng.nextInt(10))}",style: TextStyle(fontSize: 32.0,color: Colors.red),)
 
                     ],
                   ),
@@ -384,7 +385,9 @@ class DataSearch extends SearchDelegate<String> {
       String ghaza4, String drink1, String drink2) {
     bool pressed = true;
     _Rorder.clear();
+    _Rname.clear();
     _Rorder.add(name);
+    _Rname.add(name);
     return Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -600,8 +603,20 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Text(name,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
         backgroundColor: Colors.red,
+        actions: <Widget>[
+          Row(
+            children: [
+              IconButton(icon: Icon(Icons.comment_rounded), onPressed: () {
+                _NazaratState.Constractor(name);
+                Navigator.pushNamed(context, "/nazarat");
+              }),
+            ],
+          ),
+
+        ],
       ),
       body: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -610,13 +625,6 @@ class _OrderState extends State<Order> {
          DataSearch.food(context,name,  ghaza1, ghaza2, ghaza3, ghaza4, drink1, drink2),
         ],
 
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        child: Icon(Icons.arrow_back,color: Colors.black,),
-        onPressed: (){
-          Navigator.pushNamed(context, '/menu');
-        },
       ),
 
     );
@@ -640,7 +648,20 @@ class _SabadState extends State<Sabad> {
       appBar: AppBar(
         leading: Icon(Icons.border_color,color: Colors.black,),
         backgroundColor: Colors.red,
-        title: Text(_Rorder.elementAt(0),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+        title: Text(_Rname.elementAt(0),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+      actions: [
+        Row(
+          children: [
+            IconButton(icon: Icon(Icons.clear,color: Colors.black,), onPressed: (){
+              setState(() {
+                _order.clear();
+                _Rname.clear();
+                _Rname.add("Empty");
+              });
+            })
+          ],
+        )
+      ],
       ),
 
 
@@ -1012,5 +1033,132 @@ class _LastOrderState extends State<LastOrder> {
       ]
       )
       );
+  }
+}
+
+class Nazarat extends StatefulWidget {
+  @override
+  _NazaratState createState() => _NazaratState();
+}
+
+class _NazaratState extends State<Nazarat> {
+  static String name;
+  static Constractor(String esm){
+    name=esm;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        leading: Icon(Icons.insert_comment_rounded),
+        title: Text("Comments for "+name,style: TextStyle(color: Colors.black),),
+      ),
+
+      body: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Peter:",style: TextStyle(fontWeight: FontWeight.bold),),
+
+                      Text("best best best",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Jane:",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("not bad",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Harry:",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("nabiii ",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Ariana:",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("very bad",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Zayn:",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("ey bad nis",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+            Card (
+              color: Colors.grey,
+              child:Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0,10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Halsey:",style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("besiar mamnon",style: TextStyle(color: Colors.indigo))
+                    ],
+                  )
+              ),
+            ),
+
+          ],
+        ),
+      ),
+
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red,
+        onPressed: (){
+          Navigator.pop(context);
+        },
+          child: Text("Back",style: TextStyle(color: Colors.black),),
+    ),
+    );
   }
 }

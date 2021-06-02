@@ -6,3 +6,5 @@ Snappfood
 
 <img width="270" alt="Screenshot_1622657960" src="https://user-images.githubusercontent.com/79360286/120534663-5a0be700-c3f7-11eb-9d7d-74d87809f3e5.png">
 
+
+<img width="270" alt="Screenshot_1622658104" src="https://user-images.githubusercontent.com/79360286/120534894-9b03fb80-c3f7-11eb-9116-b04d91758bb0.png">

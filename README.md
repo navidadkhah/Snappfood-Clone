@@ -13,4 +13,4 @@ Snappfood
 <img width="270" alt="Screenshot_1622658056" src="https://user-images.githubusercontent.com/79360286/120535208-f46c2a80-c3f7-11eb-96bf-7b29a8e246d8.png">
 
 
-
+<img width="270" alt="Screenshot_1622659870" src="https://user-images.githubusercontent.com/79360286/120536382-4bbeca80-c3f9-11eb-946a-e198ba128f21.png">

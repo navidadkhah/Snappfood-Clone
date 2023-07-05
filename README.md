@@ -1,5 +1,6 @@
-
-*Snappfood mobile app*
+## *Snappfood mobile app*
+This is a simple clone of the Snappfood app with all widgets created with Flutter<br>
+It is possible to mention the features of the application like filtering by the closest shop or highest-rated shop, valet for keeping the money, reading discount codes, and so on.
 
 <img width="270" alt="Screenshot_1622657450" src="https://user-images.githubusercontent.com/79360286/120531534-faf8a300-c3f3-11eb-8e32-0e0e70714ddc.png">
 
